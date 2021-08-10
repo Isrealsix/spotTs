@@ -1,5 +1,3 @@
-import { useLocation } from 'react-router-dom';
-
 // Redirect to Spotify login page
 // Then returns back to our App
 
@@ -18,13 +16,18 @@ const scopes = [
 	'user-modify-playback-state',
 ];
 
-export const GetTokenFromUrl = () => {
-	const location = useLocation();
-	const queryParams = new URLSearchParams(location.search)
-	const clientId = queryParams.get('client_id')
-	console.log(clientId)
-	return clientId;
+
+
+export function getTokenFromUrl() {
+
+	return window.location.hash.substring(1).split('&')
+	.reduce((acc, item) => {
+		let split = item.split('=');
+		acc[split[0]] = decodeURIComponent(split[1]);
+		return acc;
+	}, {})
 };
+
 
 export const loginUrl = `${authEndPoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
 	'%20'
