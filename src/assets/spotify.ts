@@ -25,7 +25,7 @@ export function getTokenFromUrl() {
 		let split = item.split('=');
 		acc[split[0]] = decodeURIComponent(split[1]);
 		return acc;
-	}, {})
+	}, {} as {[key: string]: string})
 };
 
 
